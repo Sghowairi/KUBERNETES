@@ -24,3 +24,9 @@ spec:
           image: kodekloud/examplevotingapp_vote:v1
           ports:
             - containerPort: 80
+
+
+# to Scale Number of Pods use:
+# kubectl scale --replicas=3 deployment/voting-app-deploy 
+
+# https://github.com/kodekloudhub/example-voting-app/tree/master/k8s-specifications
