@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: myapp-replicaset
+  labels:
+    app: myapp 
+spec:
+  selector:
+    matchLabels:
+      app: myapp 
+  replicas: 3
+  template:
+    metadata:
+      name: nginx-2
+      labels:
+       app: myapp 
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+
+# kubectl create -f replicaset.yaml
+# kubectl get replicaset 
+
+# try to delet one by:
+# kubectl delete pod PodNAME 
+## new one will replace the old one 
+
+# kubectl describe replicaset myapp-replicaset 
+
+# to delete replicaset:
+# kubectl delete rs ReplicasetNAME 
+
+# to update number of replica or edit the yaml: 
+# kubectl edit replicaset myapp-replicaset 
+
+# or scale by: 
+# kubectl scale replicaset myapp-replicaset --replicas=2 
+
+# to learn and debuge error use:
+# kubectl explain replicaset 

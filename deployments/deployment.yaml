@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  labels:
+    app: myapp 
+    type: front-end 
+spec:
+  selector:
+    matchLabels:
+      type: front-end 
+  replicas: 3
+  template:
+    metadata:
+      name: nginx-2
+      labels:
+       app: myapp 
+       type: front-end
+    spec:
+      containers:
+        - name: nginx
+          image: nginx
+
+
+# kubectl create -f deployment.yaml
+# kubectl get deployments 
+
+# to create deployment with yaml ready use: 
+# kubectl create deployment deploymentNAME --image=imageNAME --replica=3 
+# kubectl create deployment deploymentNAME --image=imageNAME --replica=3 --dry-run=client -o yaml > deployment.yaml
+
+# to print all of deployments and replicaset and pods:
+# kubectl get all 
+
+# try to delet one by:
+# kubectl delete pod PodNAME 
+## new one will replace the old one 
+
+# kubectl describe replicaset myapp-replicaset 
+
+# to delete replicaset:
+# kubectl delete rs ReplicasetNAME 
+
+# to update number of replica or edit the yaml: 
+# kubectl edit replicaset myapp-replicaset 
+
+# or scale by: 
+# kubectl scale replicaset myapp-replicaset --replicas=2 
+
+# to learn and debuge error use:
+# kubectl explain deployment 
+
+
+### Rollout and versioning: ###
+
+# to update use: 
+# kubectl apply -f deployment.yml
+# kubectl set image deployment deploymentNAME containerNAME=imageNAME
+
+# see status 
+# kubectl rollout status deploymentNAME
+
+# history 
+# kubectl rollout history deploymentNAME
+
+### 2 type of rollout: ###
+
+#1 Recreate: delete all deployment bring up the new ones
+
+#2 RollingUpdate: delete one pring new up until all done this is the defualt 
+
+
+# to cancle deployment and rollout use: 
+# kubectl rollout undo deploymentNAME 
+

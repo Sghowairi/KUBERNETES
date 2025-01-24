@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service 
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  ports:
+    - targetPort: 80
+      port: 80
+      nodePort: 30008
+  selector:
+      app: myapp 
+      type: front-end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## NodePort: ##
+# its Maps Port in node with port in the pod
+## Component:
+# TargetPort is the pod port 
+# Port is the object Service port and have its ip called ClusterIP Service 
+# NodePort is the Node worker Port and the range is 30000 - 32767
+
+
+# To print Services use:
+# kubectl get svc 
+# to print the url use:
+# minikube service ServiceNAME --url 
+
+
