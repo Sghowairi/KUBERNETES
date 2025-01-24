@@ -22,3 +22,4 @@ spec:
 
 # to check them both use: 
 # kubectl get pods,svc 
+# kubectl describe pod postgres-pod
