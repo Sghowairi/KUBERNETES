@@ -8,3 +8,20 @@ spec:
   containers:
     - name: nginx
       image: nginx 
+
+
+# Create a pod using the yaml definition file:
+## components:
+  # apiVersion: 
+  # kind:
+  # metadata:
+  # spec:
+
+# kubectl create -f pod.yaml
+# kubectl get pods
+# kubectl describe pod nginx-2
+# kubectl delete pod nginx-2
+
+# with kubectl run you can create a pod with a single command:
+# kubectl run nginx --image=nginx
+# kubectl get pods
