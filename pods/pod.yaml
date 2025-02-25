@@ -23,5 +23,5 @@ spec:
 # kubectl delete pod nginx-2
 
 # with kubectl run you can create a pod with a single command:
-# kubectl run nginx --image=nginx
-# kubectl get pods
+  # kubectl run nginx --image=nginx
+  # kubectl get pods
