@@ -1,0 +1,5 @@
+# deployment - replicaset - pod - container - service 
+# in kubeadmin you can find the configuration file in the /etc/kubernetes/manifests/kube-controller-manager.yaml
+# in none kubeadmin settup you could find in /etc/systemd/kube-controller-manger.service 
+# you could do ps -aux | grep kube-controller-manager
+# 

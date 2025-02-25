@@ -1,0 +1,9 @@
+# kubectl connect to kube-apiserver. then kube-apiserver will connect to etcd to store or retrieve the cluster state and configuration of the cluster nodes.
+# you could use API server to interact with etcd. 
+# Kube-api server:-
+# Authentication: verifies the identity of the user or service account that is making the request.
+# Validate Request: validates the request against the API schema to ensure that the request is well-formed.
+# Retrieve Data: retrieves the data from the etcd store that is needed to process the request.
+# Update etcd: updates the etcd store with the new state of the cluster.
+# Scheduler and Controller Manager: the kube-apiserver interacts with the scheduler and controller manager to schedule pods and manage the lifecycle of the cluster.
+# kublet: the kube-apiserver interacts with the kubelet on each node to manage the lifecycle of the pods.

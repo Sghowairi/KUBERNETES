@@ -1,0 +1,6 @@
+# dessied where the pods should be run on the cluster Node.
+# CPU and memory resources are allocated to the pods based on the resource requests and limits specified in the pod configuration and the available resources on the node.
+# could run as seRrvice or as a pod.
+# in kubeadmin you can find the configuration file in the /etc/kubernetes/manifests/kube-scheduler.yaml
+# in none kubeadmin settup you could find in /etc/systemd/kube-scheduler.service
+# you could do ps -aux | grep kube-scheduler

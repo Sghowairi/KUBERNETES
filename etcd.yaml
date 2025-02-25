@@ -18,5 +18,20 @@ sudo apt-get install etcd -y
 # etcdctl watch key : watch a key in the etcd service for changes. 
 # etcdctl --version : get the version of the etcdctl command-line client.
 
+# to set the right version of etcdctl, run the following command:
+# export ETCDCTL_API=3
+
+# specify the path to certificate files so that etcdctl can communicate with the etcd API server securely.
+# --cacert /etc/kubernetes/pki/etcd/ca.crt
+# --cert /etc/kubernetes/pki/etcd/server.crt
+# --key /etc/kubernetes/pki/etcd/server.key
+
+# in the etcd master pod :
+# kubectl exec etcd-controlplane -n kube-system -- sh -c "ETCDCTL_API=3 etcdctl get / \
+#  --prefix --keys-only --limit=10 / \
+#  --cacert /etc/kubernetes/pki/etcd/ca.crt \
+#  --cert /etc/kubernetes/pki/etcd/server.crt \
+#  --key /etc/kubernetes/pki/etcd/server.key"
 
 # edit the etcd configuration file to configure the etcd service to listen on the private IP address of the node.
+

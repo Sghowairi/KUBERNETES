@@ -1,0 +1,3 @@
+# kubelet is the primary "node agent" that runs on each node. It can register the node with the apiserver using the token and certificate. It can also run pods and containers, and manage their lifecycle.
+# Verey improtant to know that it's not came with the kubernetes package with kubeadmin, you have to install it manually.
+# 
