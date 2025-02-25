@@ -17,6 +17,10 @@ spec:
   # metadata:
   # spec:
 
+# you could create the file using this:
+  # # kubectl run nginx --image=nginx --dry-run=client -o yaml
+  # # kubectl run nginx --image=nginx --dry-run=client -o yaml > pod.yaml
+
 # kubectl create -f pod.yaml
 # kubectl get pods
 # kubectl describe pod nginx-2
