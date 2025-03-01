@@ -38,5 +38,6 @@ spec:
 # or scale by: 
 # kubectl scale replicaset myapp-replicaset --replicas=2 
 
+
 # to learn and debuge error use:
 # kubectl explain replicaset 
