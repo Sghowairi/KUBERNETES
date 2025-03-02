@@ -1,0 +1,48 @@
+# ServiceAppName.Namespace.Service.domain 
+# db-service.dev.svc.cluster.local 
+
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+  labels:
+    name: dev
+    env: dev
+
+# kubectl create -f Namespace.yaml
+# kubectl get namespaces
+# kubectl create namespace dev 
+
+# kubectl config set-context $(kubectl config current-context ) --namespace=dev
+
+# to view pods in all namespace:
+# kubectl get pods --all-namespaces 
+# kubectl get pods -A 
+
+
+# to delete namespace:
+# kubectl delete namespace dev
+
+# to view all resources in a namespace:
+# kubectl get all --namespace=dev
+
+# to view all resources in all namespaces:
+# kubectl get all --all-namespaces
+
+# to limit resources in namespaces:
+# create a Resource Quota file:
+# apiVersion: v1
+# kind: ResourceQuota 
+# metadata:
+#   name: dev-quota
+#   namespace: dev
+# spec: 
+#   hard:
+#     pods: "10"
+#     requests.cpu: "4"
+#     requests.memory: 5Gi
+#     limits.cpu: "10"
+#     limits.memory: 10Gi
+
+# kubectl create -f ResourceQuota.yaml
+# kubectl describe resourcequota dev-quota --namespace=dev
