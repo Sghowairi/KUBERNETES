@@ -1,0 +1,46 @@
+# a Taints are set on nodes to repel pods from being scheduled on them.
+# a Taints are key-value pairs that are associated with a node. They allow you to mark nodes with special properties.
+
+# To create a taint on a node, use the following command:
+###### kubectl taint nodes <node-name> <key>=<value>:<effect>
+# kubectl taint nodes node01 app=blue:NoSchedule
+
+# a Taints have three effects: NoSchedule, PreferNoSchedule, and NoExecute. 
+# a NoSchedule: prevents new pods from being scheduled on the node.
+# a PreferNoSchedule: allows new pods to be scheduled on the node, but prefers to schedule them on other nodes.
+# a NoExecute: evicts and remove existing pods from the node and prevents new pods from being scheduled on the node.
+
+# To untaint a node, use the following command:
+###### kubectl taint nodes <node-name> <key>:<effect>-
+# kubectl taint nodes node01 app:NoSchedule-
+
+
+# a Tolerations are applied to pods to allow them to be scheduled on nodes with matching taints.
+# a Tolerations are key-value pairs that are associated with a pod. They allow you to specify which taints a pod can tolerate.
+# a To tolerate a taint, a pod must have a matching toleration.
+# a Taints and tolerations work together to ensure that pods are not scheduled on inappropriate nodes.
+# To create a toleration on a pod, use the following command:
+###### kubectl patch pod <pod-name> -p '{"spec":{"tolerations":[{"key":"<key>","operator":"Equal","value":"<value>","effect":"<effect>"}]}}}'
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-2
+  labels:
+    env: production
+spec:
+  containers:
+    - name: nginx
+      image: nginx 
+  tolerations:
+    - key: "app"
+      operator: "Equal"
+      value: "blue"
+      effect: "NoSchedule"
+
+
+
+# a Tolerations have three operators: Equal, Exists, and NotEqual.
+# a Equal: matches a taint with the same key and value.
+# a Exists: matches a taint with the same key, regardless of the value.
+# a NotEqual: matches a taint with the same key and a different value.
