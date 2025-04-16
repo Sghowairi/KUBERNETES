@@ -1,0 +1,23 @@
+# a node selector is a label query over a set of resources, such as nodes or pods. It allows you to select a subset of resources based on their labels.
+# a node selector is a simple way to constrain pods to nodes with specific labels. It is a field of the pod spec that specifies the labels that a pod must match in order to be scheduled on a node.
+# To create a node selector on a pod, use the following command:
+# ###### kubectl patch pod <pod-name> -p '{"spec":{"nodeSelector":{"<key>":"<value>"}}}'
+# or you can use the following Structure on the yaml file:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-2
+  labels: 
+    env: production
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  nodeSelector:
+    size: large
+
+# This will ensure that the pod is scheduled on a node with the label size=large.
+
+# To label a node, use the following command:
+# kubectl label nodes <node-name> <key>=<value>
+# ###### kubectl label nodes node01 size=large

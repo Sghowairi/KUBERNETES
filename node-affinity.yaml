@@ -1,0 +1,52 @@
+# a Node Affinity is a set of rules used by the scheduler to determine which nodes a pod can be scheduled on
+# a Node Affinity is a field of the pod spec that specifies the labels that a pod must match in order to be scheduled on a node.
+# a Node Affinity is a more expressive way to constrain pods to nodes with specific labels. It allows you to specify rules that determine which nodes a pod can be scheduled on.
+# To create a node affinity on a pod, use the following command:
+# ###### kubectl patch pod <pod-name> -p '{"spec":{"affinity":{"nodeAffinity":{"requiredDuringSchedulingIgnoredDuringExecution":{"nodeSelectorTerms":[{"matchExpressions":[{"key":"<key>","operator":"In","values":["<value1>","<value2>"]}]}]}}}}}'
+# or you can use the following Structure on the yaml file:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-2
+  labels:
+    env: production
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+          - matchExpressions:
+              - key: size
+                operator: In
+                values:
+                  - large
+                  - medium
+#
+# The Oprator can be In, NotIn, Exists (no need for a values), DoesNotExist, Gt, Lt
+# Node Affinity Types:
+# 1. requiredDuringSchedulingIgnoredDuringExecution: This type of node affinity is mandatory for scheduling. If the node does not match the specified labels, the pod will not be scheduled on that node.
+# 2. preferredDuringSchedulingIgnoredDuringExecution: This type of node affinity is optional for scheduling. If the node does not match the specified labels, the pod will still be scheduled on that node, but it will be marked as "preferred" for future scheduling.
+# 3. requiredDuringSchedulingRequiredDuringExecution: This type of node affinity is mandatory for scheduling and execution. If the node does not match the specified labels, the pod will not be scheduled on that node, and it will not be executed on that node.
+# 4. preferredDuringSchedulingRequiredDuringExecution: This type of node affinity is optional for scheduling and mandatory for execution. If the node does not match the specified labels, the pod will still be scheduled on that node, but it will not be executed on that node.
+
+# # This will ensure that the pod is scheduled on a node with the label size=large or size=medium.
+#
+# # To label a node, use the following command:
+# # kubectl label nodes <node-name> <key>=<value>
+# # ###### kubectl label nodes node01 size=large
+#
+# # To get the labels of a node, use the following command:
+# # kubectl get nodes <node-name> --show-labels
+# # ###### kubectl get nodes node01 --show-labels
+#
+# # To get the labels of a pod, use the following command:
+# # kubectl get pods <pod-name> --show-labels
+# # ###### kubectl get pods nginx-2 --show-labels
+#
+# # To get the labels of a replicaset, use the following command:
+# # kubectl get replicaset <replicaset-name> --show-labels  
+# # ###### kubectl get replicaset myapp-replicaset --show-labels
+#
