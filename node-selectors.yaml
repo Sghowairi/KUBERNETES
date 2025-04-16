@@ -17,7 +17,8 @@ spec:
     size: large
 
 # This will ensure that the pod is scheduled on a node with the label size=large.
+# But also other pods can be scheduled on the same node. 
 
 # To label a node, use the following command:
-# kubectl label nodes <node-name> <key>=<value>
+## kubectl label nodes <node-name> <key>=<value>
 # ###### kubectl label nodes node01 size=large

@@ -34,6 +34,8 @@ spec:
 
 # # This will ensure that the pod is scheduled on a node with the label size=large or size=medium.
 #
+## The Node Affinity will not prevente other pods from being in the same node  
+#
 # # To label a node, use the following command:
 # # kubectl label nodes <node-name> <key>=<value>
 # # ###### kubectl label nodes node01 size=large

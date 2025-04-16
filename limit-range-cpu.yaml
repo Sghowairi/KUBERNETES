@@ -1,0 +1,21 @@
+# a limit range cpu is to specify the minimum and maximum amount of CPU that a pod can use.
+# This applied on the name-space level and when the pod don't have resource limitaions or requests it will use the default values.
+# To create a limit range on a pod, use the following command:
+# ###### kubectl patch pod <pod-name> -p '{"spec":{"containers":[{"name":"<container-name>","resources":{"limits":{"<resource-type>":"<value>"}}}]}}}'
+# or you can use the following Structure on the yaml file:
+
+apiVersion: v1 
+kind: LimitRange
+metadata:
+  name: cpu-resource-constraint
+spec:
+  limits:
+    - default:
+        cpu: 500m 
+      defaultRequest:
+        cpu: 200m
+      max: 
+        cpu: "1"
+      min: 
+        cpu: 100m
+      type: Container

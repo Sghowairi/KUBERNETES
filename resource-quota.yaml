@@ -1,0 +1,27 @@
+# to limit resources in namespaces:
+# create a Resource Quota file:
+ apiVersion: v1
+ kind: ResourceQuota 
+ metadata:
+   name: dev-quota
+   namespace: dev
+ spec: 
+   hard:
+     pods: "10"
+     requests.cpu: "4"
+     requests.memory: 5Gi
+     limits.cpu: "10"
+     limits.memory: 10Gi
+
+# kubectl create -f ResourceQuota.yaml
+# kubectl describe resourcequota dev-quota --namespace=dev
+#
+# The pods field is the number of pods that can be created in the namespace.
+# The requests.cpu field is the total amount of CPU that can be requested by all pods in the namespace.
+# The requests.memory field is the total amount of memory that can be requested by all pods in the namespace.
+# The limits.cpu field is the total amount of CPU that can be limited by all pods in the namespace.
+# The limits.memory field is the total amount of memory that can be limited by all pods in the namespace.
+#
+# # To get the resource quota of a namespace, use the following command:
+# # kubectl get resourcequota <resource-quota-name> --namespace=<namespace-name> -o jsonpath='{.spec.hard}'
+# # ###### kubectl get resourcequota dev-quota --namespace=dev -o jsonpath='{.spec.hard}'

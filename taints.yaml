@@ -44,3 +44,5 @@ spec:
 # a Equal: matches a taint with the same key and value.
 # a Exists: matches a taint with the same key, regardless of the value.
 # a NotEqual: matches a taint with the same key and a different value.
+
+# a Tolerations it's not prevente pods from being on other untainted nods 

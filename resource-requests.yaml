@@ -1,0 +1,69 @@
+# Resource requests for a pod
+# A resource request is a way to specify the minimum amount of resources that a pod needs in order to run. 
+# It is a field of the pod spec that specifies the resources that a pod needs in order to run.
+# To create a resource request on a pod, use the following command:
+# ###### kubectl patch pod <pod-name> -p '{"spec":{"containers":[{"name":"<container-name>","resources":{"requests":{"<resource-type>":"<value>"}}}]}}}'
+# or you can use the following Structure on the yaml file:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-2
+  labels:
+    env: production
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: 2
+          #cpu: "250m"
+
+# # This will ensure that the pod is scheduled on a node with the specified resources.
+
+# 1 G (Gigabyte) = 1,000,000,000 bytes
+# 1 M (Megabyte) = 1,000,000 bytes  
+# 1 K (Kilobyte) = 1,000 bytes
+# 1 Gi (Gibibyte) = 1,073,741,824 bytes
+# 1 Mi (Mebibyte) = 1,048,576 bytes
+# 1 Ki (Kibibyte) = 1,024 bytes
+# 1 cpu = 1 core = 1 thread = 1 vCPU = 1 virtual CPU = 1 virtual core
+# 1 m (millicore) = 0.001 core = 0.001 thread = 0.001 vCPU = 0.001 virtual CPU = 0.001 virtual core
+
+
+# # To get the resource requests of a pod, use the following command:
+# # kubectl get pods <pod-name> -o jsonpath='{.spec.containers[0].resources.requests}'
+# # ###### kubectl get pods nginx-2 -o jsonpath='{.spec.containers[0].resources.requests}'
+
+# # To get the resource requests of a replicaset, use the following command:
+# # kubectl get replicaset <replicaset-name> -o jsonpath='{.spec.template.spec.containers[0].resources.requests}'
+
+
+# To Resource limits for a pod
+# A resource limit is a way to specify the maximum amount of resources that a pod can use.
+# It is a field of the pod spec that specifies the resources that a pod can use in order to run.
+# To create a resource limit on a pod, use the following command:
+# ###### kubectl patch pod <pod-name> -p '{"spec":{"containers":[{"name":"<container-name>","resources":{"limits":{"<resource-type>":"<value>"}}}]}}}'
+# or you can use the following Structure on the yaml file:
+
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: nginx-2
+#   labels:
+#     env: production
+# spec:
+#   containers:
+#     - name: nginx
+#       image: nginx
+#       resources:
+#         limits:
+#           memory: "128Mi"
+#           cpu: 4
+#          #cpu: "500m"
+
+# # This will ensure that the pod is scheduled on a node with the specified resources.  
+
+## The Container Cpu can't exceed its limitations 
+## The Container Memory exceed its limit and the container will fail with OOM (Out of Memory) error.
