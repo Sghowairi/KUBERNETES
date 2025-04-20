@@ -1,0 +1,39 @@
+# monitor node metrics like CPU, memory, and disk usage
+# monitor pod metrics like CPU, memory, and disk usage
+# monitor network metrics like bandwidth, latency, and packet loss
+# monitor application metrics like response time, error rate, and throughput
+
+# we will use the following tools to monitor the cluster:
+# - Prometheus: a powerful monitoring and alerting toolkit that is widely used in the Kubernetes ecosystem.
+# - Grafana: a popular open-source analytics and monitoring platform that integrates with Prometheus to provide a rich visualization layer.
+# - Alertmanager: a component of Prometheus that handles alerts and notifications.
+# - Node Exporter: a Prometheus exporter that exposes hardware and OS metrics from the host machine.
+
+# in this course will use METRICS-Server to monitor the cluster.
+# METRICS-Server is a cluster-wide aggregator of resource usage data.
+# it collects resource metrics from Kubelets and exposes them in the Kubernetes API server.
+# it is stored them in memory and does not persist them to disk.
+
+# kubelet is a component of the Kubernetes cluster that runs on each node and is responsible for managing the containers on that node.
+# it has a sub component that collects resource metrics from the containers and exposes them to the METRICS-Server called cAdvisor.
+# cAdvisor is a container monitoring tool that provides resource usage and performance characteristics of running containers.
+
+## in minikube setup you called run this command to enable METRICS-Server:
+# minikube addons enable metrics-server
+
+## in other setup you could clone the METRICS-Server repo and run the following command:
+# git clone https://github.com/kubernetes-sigs/metrics-server.git
+# kubectl create -f deploy/1.16+/
+
+# or for quick start 
+## kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+# To view cluster performance metrics run this command:
+### kubectl top node 
+
+# To view pod performance metrics run this command:
+### kubectl top pod 
+### kubectl top pod --sort-by='memory' --no-headers | head -1 
+### kubectl top pod --sort-by='cpu' --no-headers | head -1 
+
+### kubectl top pod --sort-by='cpu' --no-headers | tail -1 

@@ -1,0 +1,5 @@
+# For viewing a log of a pod that have one container:
+## kubectl logs -f PodName 
+
+# For viewing a log of a pod that have multi containers:
+## kubectl logs -f PodName ContainerName 
