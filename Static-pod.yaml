@@ -1,0 +1,19 @@
+# A Static Pod is a pod that is managed directly by the kubelet daemon on a specific node, rather than by the Kubernetes control plane.
+
+# Static Pods are typically used for system-level components that need to run on a specific node, such as the kube-proxy or the kubelet itself.
+
+# Static Pods are defined in a file on the node's filesystem, and the kubelet will automatically create and manage the pod based on that file.
+
+# Static Pods are not managed by the Kubernetes API server, so they do not have the same lifecycle as regular pods.
+
+# The File is typically located in the /etc/kubernetes/manifests directory on the node.
+
+# The kubelet will watch this directory for changes and create or delete pods as necessary.
+
+# To locate the file path open the kubelet configuration file:
+
+# In /var/lib/kubelet/config.yaml or kubelet.service >> look for the --pod-manifest-path flag or --config flag to open the kubelet configuration file and check staticPodPath 
+
+## To control the static pod, you can use the Docker commands to start, stop, and remove the static pod.
+
+## The Use Case for Static Pods is to run system-level components that need to run on a specific node, such as the kube-proxy or the kubelet itself.

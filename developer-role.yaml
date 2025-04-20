@@ -1,0 +1,25 @@
+# When a kubectl command is run the request is sent to kubAPI server and the API server will go into authentication process usually done through certificates. 
+# The API server will then send the request to the etcd database and the etcd database will store the request in a key-value pair.
+# if the RBAC is Validated the API server will send the request to the kubelet and the kubelet will create the pod.
+
+# A role is a set of permissions that can be assigned to a user or a group of users.
+# To create a role, use the following command:
+# kubectl create role <role-name> --verb=<verb> --resource=<resource> --namespace=<namespace>
+# or you can use the following Structure on the yaml file:
+
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: developer-role
+  namespace: dev
+rules:
+  - apiGroups: ["*"]
+    resources: ["pods", "pods/log"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+    resourceNames: ["nginx-2"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]
+  - apiGroups: ["extensions"]
+    resources: ["ingresses"]
+    verbs: ["get", "list", "watch", "create", "update", "delete"]

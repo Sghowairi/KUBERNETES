@@ -1,0 +1,57 @@
+
+## this file will be used to configure the scheduler on the scheduler pod yaml file.
+## by using the --config flag to point to this file.
+
+
+#apiVersion: kubescheduler.config.k8s.io/v1
+#kind: KubeSchedulerConfiguration
+#profiles:
+#- schedulerName: default-scheduler 
+#leaderElection:
+  #leaderElect: true # this option is used to enable leader election for the scheduler in case there is multi scheduler running in the cluster.
+  #resourceName: lock-object-my-scheduler
+  #resourceNamespace: kube-system
+  #resourceLock: configmaps
+
+# a configmap that will use to my-scheduler-config.yaml
+apiVersion: v1
+data:
+  my-scheduler-config.yaml: |
+    apiVersion: kubescheduler.config.k8s.io/v1
+    kind: KubeSchedulerConfiguration
+    profiles:
+      - schedulerName: my-scheduler
+    leaderElection:
+      leaderElect: false
+kind: ConfigMap
+metadata:
+  name: my-scheduler-config
+  namespace: kube-system
+
+# my-scheduler-config.yaml
+#apiVersion: kubescheduler.config.k8s.io/v1
+#kind: KubeSchedulerConfiguration
+#profiles:
+#  - schedulerName: my-scheduler
+#leaderElection:
+#  leaderElect: false # this option is used to enable leader election for the scheduler in case there is multi scheduler running in the cluster.
+
+#If you're still unsure, run kubectl explain KubeSchedulerConfiguration to see the valid properties for your apiVersion.
+
+#  To bind a pod to a custom scheduler uses the following in the pod spec:
+#spec:
+#  schedulerName: my-scheduler
+
+#  # or you can use the following in the command line:
+
+#  kubectl run my-pod --image=my-image --overrides='
+#  apiVersion: v1
+#  kind: Pod
+#  metadata:
+#    name: my-pod
+#  spec:
+#    schedulerName: my-scheduler
+#  '
+
+# To know which scheduler is used for a pod, use the following command:
+# kubectl get events -o wide

@@ -1,0 +1,42 @@
+# A Daemon sets are used to ensure that all (or some) nodes in a cluster run a copy of a pod.
+# The Perfect use case for a DaemonSet is running a cluster storage daemon on each node.
+# # DaemonSets are also used for logging and monitoring agents, as well as for network proxies.
+# # DaemonSets are also used for running system daemons, such as the kube-proxy and the kubelet.
+
+# To create a DaemonSet, use the following command:
+# kubectl create -f daemon-set.yaml
+# or you can use the following Structure on the yaml file:
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: monitoring-daemon
+  labels:
+    env: production
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-agent
+  template:
+    metadata:
+      labels:
+        app: monitoring-agent
+    spec:
+      containers:
+        - name: monitoring-agent
+          image: monitoring-agent:latest
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: 500m
+            limits:
+              memory: "256Mi"
+              cpu: 1    
+
+# # # This will ensure that the DaemonSet is scheduled on all nodes with the specified resources.
+
+# To review the DaemonSet, use the following command:
+# # # kubectl get daemonset <daemonset-name> -o yaml
+
+
+# # To get the resource requests of a DaemonSet, use the following command:
+# # kubectl get daemonset <daemonset-name> -o jsonpath='{.spec.template.spec.containers[0].resources.requests}'

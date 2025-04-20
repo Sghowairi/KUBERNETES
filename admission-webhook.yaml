@@ -1,0 +1,39 @@
+# It is customized admission-control do validation and mutation of Kubernetes resources.
+# It is a webhook that is called by the Kubernetes API server to validate and mutate requests to the API server.
+# It is used to enforce policies, such as requiring certain labels or annotations on objects, or to mutate requests to add default values.
+# It is also used to enforce security policies, such as requiring certain security contexts or network policies.
+# To create an admission controller, you need to create a webhook configuration file and a webhook server.
+# The webhook configuration file specifies the URL of the webhook server and the resources that the webhook should be called for.
+# The webhook server is a HTTP server that receives requests from the API server and responds with a validation or mutation response.
+# The webhook server can be implemented in any programming language and can use any HTTP framework.
+# The webhook server should implement the following HTTP endpoints:
+# - /validate: This endpoint is used to validate requests to the API server. It should return a 200 OK response if the request is valid, or a 400 Bad Request response if the request is invalid.
+# - /mutate: This endpoint is used to mutate requests to the API server. It should return a 200 OK response with the mutated request if the request is valid, or a 400 Bad Request response if the request is invalid.
+# The configuration file in yaml like this:
+apiVersion: admissionregistration.k8s.io/v1
+kind: ValidatingWebhookConfiguration
+metadata:
+  name: "pod-policy.example.com"
+webhooks:
+- name: "pod-policy.example.com"
+  clientConfig:
+    service:
+      name: "webhook-service"
+      namespace: "webhook-namespace"
+    caBundle: <ca-bundle>
+  rules:
+  - operations: ["CREATE", "UPDATE"]
+    apiGroups: ["*"]
+    apiVersions: ["v1"]
+    resources: ["pods"]
+    scope: "Namespaced"
+  sideEffects: "None"
+  admissionReviewVersions: ["v1"]
+
+# to create tls secret for the webhook server, use the following command:
+# kubectl create secret tls <secret-name> --cert=<path-to-cert-file> --key=<path-to-key-file> -n <namespace>
+
+
+# not sure 
+# to create certificate for the webhook server, use the following command:
+# openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout <path-to-key-file> -out <path-to-cert-file> -subj "/CN=webhook-service.webhook-namespace.svc"
