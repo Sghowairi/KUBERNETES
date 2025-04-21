@@ -1,0 +1,31 @@
+# In a Pod definition file we could specify the arguments to be passed to the container when it is started.
+# # The arguments are specified in the args field of the container spec.
+# # The args field is a list of strings, where each string is an argument to be passed to the container.
+# # The args field is optional, and if it is not specified, the container will use the default command and arguments specified in the image.
+
+# pod definition file using the args field:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: production
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      command:
+        - /bin/bash
+        - -c
+        - echo "Hello World"
+    # command: ["/bin/bash", "-c", "echo Hello World"]
+    # The command field is used to specify the command to be run when the container is started.
+    # The command field is like the ENTRYPOINT field in the Dockerfile.
+      args:
+        - /bin/bash
+        - -c
+        - echo "Hello World"
+    # args:["/bin/bash", "-c", "echo Hello World"]
+        # The above command will print "Hello World" to the console when the container is started.
+        # The args field can also be used to pass arguments to a script or command that is specified in the CMD field in Dockerfile.
+  
