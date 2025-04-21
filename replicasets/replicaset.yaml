@@ -23,7 +23,7 @@ spec:
 # kubectl create -f replicaset.yaml
 # kubectl get replicaset 
 
-# try to delet one by:
+# try to delete one by:
 # kubectl delete pod PodNAME 
 ## new one will replace the old one 
 
@@ -39,5 +39,5 @@ spec:
 # kubectl scale replicaset myapp-replicaset --replicas=2 
 
 
-# to learn and debuge error use:
+# to learn and debug error use:
 # kubectl explain replicaset 
