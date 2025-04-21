@@ -1,0 +1,111 @@
+# rolling updates and rollbacks in deployment:
+# Typically, a rolling update is a process of gradually replacing instances of an application with new versions without downtime.
+# This is achieved by updating the deployment configuration and allowing Kubernetes to manage the rollout process.
+# The deployment controller will create new pods with the updated configuration and gradually replace the old pods with the new ones.
+
+# To Check the status of the rollout, you can use the following command:
+### kubectl rollout status deployment <deployment-name>
+
+# To view the history of rollout, you can use the following command:
+### kubectl rollout history deployment <deployment-name>
+
+ # Deployment Strategy:
+ # The deployment strategy is the method used to update the application. There are two main strategies:
+ # 1. Rolling Update: This strategy updates the application by gradually replacing instances of the old version with the new version. This is the default strategy.
+ # 2. Recreate: This strategy stops all instances of the old version and then starts new instances of the new version. This strategy is used when the application cannot be updated in place.
+ 
+ # The deployment RollingUpdate strategy can be specified in the deployment configuration file using the following structure:
+ apiVersion: apps/v1
+ kind: Deployment
+ metadata:
+   name: nginx-deployment
+   labels:
+     app: nginx
+ spec:
+   replicas: 3
+   selector:
+     matchLabels:
+       app: nginx
+   strategy:
+     type: RollingUpdate
+     rollingUpdate:
+       maxUnavailable: 1
+       maxSurge: 1
+   template:
+     metadata:
+       labels:
+         app: nginx
+     spec:
+       containers:
+         - name: nginx
+           image: nginx:1.14.2
+           ports:
+             - containerPort: 80
+           resources:
+             requests:
+               memory: "64Mi"
+               cpu: 500m
+             limits:
+               memory: "128Mi"
+               cpu: 1
+# The maxUnavailable field specifies the maximum number of pods that can be unavailable during the update process.
+# The maxSurge field specifies the maximum number of pods that can be created above the desired number of pods during the update process.
+# The default values for maxUnavailable and maxSurge are 1 and 1, respectively.
+
+---
+
+# The Deployment strategy Recreate can be specified in the deployment configuration file using the following structure:
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.14.2
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: 500m
+            limits:
+              memory: "128Mi"
+              cpu: 1
+
+
+
+# We use apply command to update the deployment:
+### kubectl apply -f <deployment-file.yaml>
+
+# To update single component of the deployment, you can use the following command:
+### kubectl set image deployment <deployment-name> <container-name>=<new-image>
+# This will update the image of the specified container in the deployment.
+
+
+# To undo a rollout, you can use the following command:
+### kubectl rollout undo deployment <deployment-name>
+
+# This will revert the deployment to the previous version.
+
+# To view the rollout history, you can use the following command:
+### kubectl rollout history deployment <deployment-name>
+
+# To rollback to a specific revision, you can use the following command:
+### kubectl rollout undo deployment <deployment-name> --to-revision=<revision-number>
+
+# To view the rollout status, you can use the following command:
+### kubectl rollout status deployment <deployment-name>
