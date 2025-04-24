@@ -1,0 +1,79 @@
+# There is two ways to create a ConfigMap:
+# 1. Using kubectl command line tool like:
+
+# ### kubectl create configmap configmap-name --from-literal=key1=value1 --from-literal=key2=value2
+# --from-literal is used to create a ConfigMap from literal values.
+
+# ### kubectl create configmap configmap-name --from-file=path/to/file
+# --from-file is used to create a ConfigMap from a file.
+
+# ### kubectl create configmap configmap-name --from-env-file=path/to/env/file
+# --from-env-file is used to create a ConfigMap from an env file.
+
+# 2. Using YAML file like:
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: configmap-name
+# data:
+#   key1: value1
+#   APP_COLOR: blue
+#   APP_VERSION: 1.0.0 
+#   # The data field is used to specify the data that should be stored in the ConfigMap.
+#   # The data field is a map of key-value pairs, where each key is the name of the data item and the value is the value of the data item.
+
+
+#To view the ConfigMap, you can use the following command:
+# ### kubectl get configmap configmap-name -o yaml
+
+
+## Now let's map the ConfigMap to the Pod using the env field:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: production
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      envFrom:
+        - configMapRef:
+            name: configmap-name
+          # key: APP_COLOR
+          # The key field is used to specify the name of the key in the ConfigMap that should be used to set the environment variable.
+      # The envFrom field is used to specify environment variables that should be set in the container when it is started.
+      # The envFrom field is a list of environment variables, where each environment variable is specified as a name-value pair. 
+
+
+# - env:
+#   - name: APP_COLOR
+#     valueFrom: 
+#      configMapKeyRef:
+#        name: webapp-config-map
+#        key: APP_COLOR
+---
+
+# We could also map the ConfigMap to the Pod using the Volumes field:
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: production
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+          # The mountPath field is used to specify the path in the container where the ConfigMap should be mounted.
+          # The mountPath field is required, and if it is not specified, the ConfigMap will not be mounted in the container.
+  volumes:
+     - name: config-volume
+       configMap:
+          name: configmap-name
+             # The configMap field is used to specify the ConfigMap that should be mounted in the container.
+             # The configMap field is a reference to the ConfigMap that should be mounted in the container.

@@ -29,3 +29,18 @@ spec:
         # The above command will print "Hello World" to the console when the container is started.
         # The args field can also be used to pass arguments to a script or command that is specified in the CMD field in Dockerfile.
   
+
+# If you want to run a command in the container and pass arguments to it, you can use the --command -- <cmd> <args1> <args2> syntax
+# or you can use the -- <args1> <args2> syntax to pass arguments to the command that is specified in the image.
+### kubectl run nginx --image=nginx -- "Hello World"
+
+# The -- indicates the end of the options for the kubectl command and the beginning of the command to be run in the container.
+
+# For example, to run the echo command in the nginx container and pass "Hello World" as an argument, you can use the following command:
+### kubectl exec -it nginx -- echo "Hello World"
+# This will run the echo command in the nginx container and print "Hello World" to the console.
+
+# or create a new pod with the same name and run the echo command in it.
+### kubectl run nginx --image=nginx --command -- echo "Hello World"
+# The --command flag is used to specify that the command should be run in the container, and the -- indicates the end of the options for the kubectl command and the beginning of the command to be run in the container.
+# This will create a new pod with the name nginx and run the echo command in it, printing "Hello World" to the console.

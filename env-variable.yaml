@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod 
+metadata:
+  name: nginx
+  labels:
+    env: production
+spec: 
+  containers:
+    - name: nginx
+      image: nginx
+      command:
+        - /bin/bash
+        - -c
+        - echo "Hello World"
+      args:
+        - /bin/bash
+        - -c
+        - echo "Hello World"
+      env:
+        # The env field is used to specify environment variables that should be set in the container when it is started.
+        # The env field is a list of environment variables, where each environment variable is specified as a name-value pair.
+        # The name of the environment variable is specified in the name field, and the value of the environment variable is specified in the value field.
+        # The env field is optional, and if it is not specified, the container will not have any environment variables set when it is started.
+        - name: ENV_VAR_NAME
+          value: production
+        # The above environment variable will be set in the container when it is started, and its value will be production.
+        # You can also use the valueFrom field to specify the value of the environment variable from a ConfigMap or Secret.
+
+# There are Three ways to set environment variables in a Pod:
+# 1. Using Plain Key-Value Pairs like: 
+#    env:
+#      - name: ENV_VAR_NAME
+#        value: production
+
+# 2. Using ConfigMaps like:
+#    env:
+#      - name: ENV_VAR_NAME 
+#        valueFrom:
+#          configMapKeyRef:
+#            name: configmap-name
+#            key: configmap-key
+
+# 3. Using Secrets like:
+#    env:
+#      - name: ENV_VAR_NAME
+#        valueFrom:
+#          secretKeyRef:
+#            name: secret-name
+#            key: secret-key
+
+
