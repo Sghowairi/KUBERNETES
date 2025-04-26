@@ -4,6 +4,7 @@ metadata:
   name: myapp-replicaset
   labels:
     app: myapp 
+  namespace: default
 spec:
   selector:
     matchLabels:
