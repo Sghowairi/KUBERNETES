@@ -27,7 +27,7 @@
 # ### kubectl get configmap configmap-name -o yaml
 
 
-## Now let's map the ConfigMap to the Pod using the env field:
+## Now let's map the ConfigMap to the Pod using the envFrom field:
 apiVersion: v1
 kind: Pod
 metadata:
