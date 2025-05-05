@@ -25,7 +25,7 @@
 # You can confirm or change this directory by checking the kubelet configuration:
 # ps aux | grep kubelet
 
-# Look for the --pod-manifest-path flag.
+# Look for the --pod-manifest-path flag OR staticPodPath flag
 
 ### Create a static Pod manifest
 
