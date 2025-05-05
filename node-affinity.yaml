@@ -27,10 +27,8 @@ spec:
 #
 # The Oprator can be In, NotIn, Exists (no need for a values), DoesNotExist, Gt, Lt
 # Node Affinity Types:
-# 1. requiredDuringSchedulingIgnoredDuringExecution: This type of node affinity is mandatory for scheduling. If the node does not match the specified labels, the pod will not be scheduled on that node.
+# 1. requiredDuringSchedulingIgnoredDuringExecution: This type of node affinity is mandatory for scheduling. If the node does not match the specified labels, the pod will not be scheduled on that node, Ignored During Execution: Once scheduled, even if node labels change and the condition is no longer met, the pod won’t be evicted.
 # 2. preferredDuringSchedulingIgnoredDuringExecution: This type of node affinity is optional for scheduling. If the node does not match the specified labels, the pod will still be scheduled on that node, but it will be marked as "preferred" for future scheduling.
-# 3. requiredDuringSchedulingRequiredDuringExecution: This type of node affinity is mandatory for scheduling and execution. If the node does not match the specified labels, the pod will not be scheduled on that node, and it will not be executed on that node.
-# 4. preferredDuringSchedulingRequiredDuringExecution: This type of node affinity is optional for scheduling and mandatory for execution. If the node does not match the specified labels, the pod will still be scheduled on that node, but it will not be executed on that node.
 
 # # This will ensure that the pod is scheduled on a node with the label size=large or size=medium.
 #
