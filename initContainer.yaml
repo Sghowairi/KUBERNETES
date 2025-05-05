@@ -1,0 +1,61 @@
+# The initContainer is a special type of container that runs before the main container in a pod.
+# It is used to perform initialization tasks that need to be completed before the main container starts.
+# Init containers are defined in the pod specification and are run in the order they are defined.
+# Each init container must complete successfully before the next one starts.
+# If an init container fails, the pod will not start and the init container will be restarted until it succeeds.
+# Init containers are useful for tasks such as setting up the environment, waiting for a service to be available, or performing database migrations.
+## To create an init container, you can use the following command:
+# ###### kubectl run <pod-name> --image=<image-name> --init-container -- <command>
+# or you can use the following Structure on the yaml file:
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: production
+spec:
+  initContainers:
+    - name: init-myservice
+      image: busybox
+      command: ['sh', '-c', 'echo "Hello from init container"']
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      command: ['sh', '-c', 'echo "Hello from main container"']
+
+# # The init container will run first and print "Hello from init container" to the console.
+# # After the init container completes successfully, the main container will start and print "Hello from main container" to the console.
+
+# The initContainer can be multiple and they will run in the order they are defined.
+---
+# You can use the following yaml structure to create a pod with a multi init container: 
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  labels:
+    env: production
+spec:
+  initContainers:
+    - name: init-myservice
+      image: busybox
+      command: ['sh', '-c', 'echo "Hello from init container 1"']
+    - name: init-myservice-2
+      image: busybox
+      command: ['sh', '-c', 'echo "Hello from init container 2"']
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      command: ['sh', '-c', 'echo "Hello from main container"']
+
+# To check the logs of the init container, you can use the following command:
+# ###### kubectl logs <pod-name> -c <init-container-name>
+# ###### kubectl logs nginx -c init-myservice
+# or you can use the following command to check the logs of all containers in the pod:
+# ###### kubectl logs <pod-name> --all-containers=true
+ 

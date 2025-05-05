@@ -15,12 +15,10 @@ spec:
 
 
 
-
-
-
-
-
-
+# To create a service use:
+# kubectl create -f service.yaml
+# To print the service yaml use:
+# kubectl get svc myapp-service -o yaml
 
 
 
