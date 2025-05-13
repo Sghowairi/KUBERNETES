@@ -41,7 +41,7 @@ spec:
 # # The averageUtilization field specifies the target average CPU utilization for the replicas.
 
 
---- 
+
 # The VPA | automatically adjusts the resource requests and limits of a pod based on the resource utilization of the pod.
 # The VPA can be created using the following command:
 # kubectl apply -f vpa.yaml
@@ -56,15 +56,14 @@ spec:
 #    apiVersion: apps/v1
 #    kind: Deployment
 #    name: nginx-deployment
-  updatePolicy:
-    updateMode: Auto
-  resourcePolicy:
-    containerPolicies:
-      - containerName: nginx
-        minAllowed:
-          cpu: 100m
-          memory: 128Mi
-        maxAllowed:
-          cpu: 1
-          memory: 1Gi
----
+#  updatePolicy:
+#    updateMode: Auto
+#  resourcePolicy:
+#    containerPolicies:
+#      - containerName: nginx
+#        minAllowed:
+#          cpu: 100m
+#          memory: 128Mi
+#        maxAllowed:
+#          cpu: 1
+#          memory: 1Gi
