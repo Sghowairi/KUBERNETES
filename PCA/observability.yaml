@@ -1,0 +1,45 @@
+# This a start for the observability section of the Prometheus Certified Associate (PCA) course. It will be used to create a new file called observability.yaml. This file will contain the following information:
+# The observability section of the PCA course will cover the following topics:
+# 1. What is observability?
+# 2. What is Prometheus?
+# 3. SLA, SLO, and SLIs
+# 4. Metrics
+# 5. Application Instrumentation
+# 6. Prometheus Architecture
+# 7. Prometheus Configuration
+# 8. Prometheus Query Language (PromQL)
+# 9. Prometheus Alerting
+# 10. Prometheus Exporters
+# 11. Prometheus Pushgateway
+# 12. Prometheus Service Discovery
+# 13. Monitoring Kubernetes with Prometheus
+
+#### 
+# # What is observability?
+
+# Observability is the ability to measure and understand the internal state of a system based on the external outputs of that system. It is a key concept in modern software development and operations, as it allows teams to monitor and troubleshoot complex systems in real-time.
+# Observability is achieved through the use of various tools and techniques, such as logging, metrics, and tracing. These tools provide insights into the performance and behavior of a system, allowing teams to identify and resolve issues quickly.
+# In this course, we will cover The Metrics part that prometheus is designed to collect and analyze.
+
+
+#### 
+# # What is Prometheus?
+
+# prometheus is a monitoring system and time series database that is designed for reliability and scalability. It is widely used in cloud-native environments and is a key component of the Kubernetes ecosystem.
+# Prometheus is a powerful tool for collecting and querying metrics from various sources, including Kubernetes clusters, applications, and infrastructure components. It provides a flexible query language (PromQL) that allows users to extract and analyze metrics data in real-time.
+# Prometheus is designed to be highly available and fault-tolerant, with built-in support for data replication and sharding. It can be easily integrated with other tools and systems, such as Grafana for visualization and alerting.
+# Prometheus is also designed to be extensible, with a wide range of exporters and integrations available for various platforms and technologies.
+
+
+#### 
+# # SLA, SLO, and SLIs
+
+# SLA (Service Level Agreement) is a formal agreement between a service provider and a customer that defines the expected level of service. It typically includes metrics such as uptime, response time, and availability.
+# SLAs are often legally binding and can have financial penalties for non-compliance.
+
+# SLO (Service Level Objective) is a specific target or goal for a service level metric. It is a more granular and measurable version of an SLA and is often used to track performance over time.
+# SLOs are typically defined in terms of percentage or ratio, such as "99.9% uptime" or "95% response time under 200ms."
+# SLOs are often used to measure the performance of a service against its SLA and can be used to identify areas for improvement.
+
+# SLIs (Service Level Indicators) are the actual metrics used to measure the performance of a service against its SLOs. They are the raw data points that are collected and analyzed to determine whether a service is meeting its SLOs.
+# SLIs are typically defined in terms of specific metrics, such as response time, error rate, or throughput.
