@@ -17,3 +17,33 @@
 ## To control the static pod, you can use the Docker commands to start, stop, and remove the static pod.
 
 ## The Use Case for Static Pods is to run system-level components that need to run on a specific node, such as the kube-proxy or the kubelet itself.
+
+## for creating a static pod ## 
+### By default, the kubelet watches for static Pod manifests in:
+# /etc/kubernetes/manifests/ 
+
+# You can confirm or change this directory by checking the kubelet configuration:
+# ps aux | grep kubelet
+
+# Look for the --pod-manifest-path flag OR staticPodPath flag
+
+### Create a static Pod manifest
+
+# Create a YAML file in the manifest path. Example: /etc/kubernetes/manifests/nginx-pod.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-static
+  labels:
+    role: webserver
+spec:
+  containers:
+  - name: nginx
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+
+#kubelet picks it up automatically
+# Once the YAML file is placed in the directory, kubelet will detect it and create the Pod automatically — no need to run kubectl apply.
+# crictl pods
